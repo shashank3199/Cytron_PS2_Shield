@@ -16,7 +16,7 @@ void Cytron_PS2_Shield::write(uint8_t data)
 		PS2Serial->read();
 	}
 	PS2Serial->write(data);
-	PS2Serial.flush();
+	PS2Serial->flush();
 }
 
 // Default Read Function for Receiving Value from the PS2
@@ -97,14 +97,14 @@ void Cytron_PS2_Shield::UpdateData()
 	// Check which Joystick is being used 
 	if(Joystick == RIGHT_JOYSTICK)
 	{
-		this->Axis_raw_values[X_AXIS]; = this->ps2.readButton(PS2_JOYSTICK_RIGHT_X_AXIS);
-		this->Axis_raw_values[Y_AXIS]; = this->ps2.readButton(PS2_JOYSTICK_RIGHT_Y_AXIS);
+		this->Axis_raw_values[X_AXIS] = this->readButton(PS2_JOYSTICK_RIGHT_X_AXIS);
+		this->Axis_raw_values[Y_AXIS] = this->readButton(PS2_JOYSTICK_RIGHT_Y_AXIS);
 	}
 
 	else if(Joystick == LEFT_JOYSTICK)
 	{
-		this->Axis_raw_values[X_AXIS]; = this->ps2.readButton(PS2_JOYSTICK_LEFT_X_AXIS);
-		this->Axis_raw_values[Y_AXIS]; = this->ps2.readButton(PS2_JOYSTICK_LEFT_Y_AXIS);
+		this->Axis_raw_values[X_AXIS] = this->readButton(PS2_JOYSTICK_LEFT_X_AXIS);
+		this->Axis_raw_values[Y_AXIS] = this->readButton(PS2_JOYSTICK_LEFT_Y_AXIS);
 	} 
 
 	else
@@ -128,9 +128,9 @@ void Cytron_PS2_Shield::UpdateData()
 	// ---------------- Full Scaled Values ------------------------
 	// Debugger message (Level: DEBUG)
 	// Full scale Axis Values: %FS_X_AXIS% %FS_Y_AXIS%
-	String msg = "Full scale Axis Values ";
+	msg = "Full scale Axis Values ";
 	this->Axis_scaled_values[X_AXIS] = this->Axis_raw_values[X_AXIS] - 128;
-	this->Axis_scaled_values[Y_AXIS] = this->Axis_raw_values[Y_AXIS] - 127;
+	this->Axis_scaled_values[Y_AXIS] = 127 - this->Axis_raw_values[Y_AXIS];
 	msg.concat(" X_AXIS: ");
 	msg.concat(this->Axis_scaled_values[X_AXIS]);
 	msg.concat(" Y_AXIS: ");
@@ -141,13 +141,15 @@ void Cytron_PS2_Shield::UpdateData()
 	// Debugger message (Level: DEBUG)
 	// Full scale Polar Values: %POLAR_RADIUS% %POLAR_ANGLE%
 	// Radius = sqrt(X_AXIS^2 + Y_AXIS^2)
-	this->Polar_values[RADIUS]=pow((pow(this->Axis_scaled_values[X_AXIS],2)+pow(this->Axis_scaled_values[Y_AXIS],2)),0.5)
+	this->Polar_values[RADIUS]=pow((pow(this->Axis_scaled_values[X_AXIS],2)+pow(this->Axis_scaled_values[Y_AXIS],2)),0.5);
 	// Angle = arcTan(X_AXIS/Y_AXIS)
+	// Angle Values in Radian
 	this->Polar_values[ANGLE]=atan2(this->Axis_scaled_values[X_AXIS],this->Axis_scaled_values[Y_AXIS]);
 	// To make Angles Positive
 	if(this->Polar_values[ANGLE]<0)
-		this->Polar_values[ANGLE]+ =2*3.14;
-	String msg = "Full scale Polar Values ";
+		this->Polar_values[ANGLE] += 2*3.1415;
+	this->Polar_values[ANGLE] *=180/3.1415;
+	msg = "Full scale Polar Values ";
 	msg.concat(" RADIUS: ");
 	msg.concat(this->Polar_values[RADIUS]);
 	msg.concat(" ANGLE: ");
@@ -185,20 +187,20 @@ int Cytron_PS2_Shield::GetX_Axis()
 	return this->Axis_scaled_values[X_AXIS];
 }
 
-int Cytron_PS2_Shield::GetY_Axis_Raw()
+int Cytron_PS2_Shield::GetY_Axis()
 {
 	// Read Y_AXIS Scaled
 	return this->Axis_scaled_values[Y_AXIS];
 }
 
 // ------------------- Polar Values ---------------------------
-int Cytron_PS2_Shield::GetPolarAngle()
+float Cytron_PS2_Shield::GetPolarAngle()
 {
 	// Read Polar Angle
 	return this->Polar_values[ANGLE];
 }
 
-int Cytron_PS2_Shield::GetPolarRadius()
+float Cytron_PS2_Shield::GetPolarRadius()
 {
 	// Read Polar Radius
 	return this->Polar_values[RADIUS];
