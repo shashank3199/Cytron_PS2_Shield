@@ -182,7 +182,7 @@ uint8_t Cytron_PS2_Shield::readButton(uint8_t key)
 {
 	// Default Implemtation of the Function
 	this->write(key);
-	return read();
+	return (this->read()^1);
 }
 
 // #################### Getter Functions #######################
