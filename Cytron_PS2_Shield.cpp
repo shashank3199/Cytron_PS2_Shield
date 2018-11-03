@@ -129,8 +129,24 @@ void Cytron_PS2_Shield::UpdateData()
 	// Debugger message (Level: DEBUG)
 	// Full scale Axis Values: %FS_X_AXIS% %FS_Y_AXIS%
 	msg = "Full scale Axis Values ";
-	this->Axis_scaled_values[X_AXIS] = this->Axis_raw_values[X_AXIS] - 128;
-	this->Axis_scaled_values[Y_AXIS] = 127 - this->Axis_raw_values[Y_AXIS];
+	// Centering the Axis Values to zero at Mid Point of the Joystick 
+	int tempX = this->Axis_raw_values[X_AXIS] - 128;
+	int tempY = 127 - this->Axis_raw_values[Y_AXIS];
+	// Temporary Variables - 
+	float rad = pow((pow(tempX,2)+pow(tempY,2)),0.5);
+	int Mult ;
+	// Mapping the Square Coordintae System to Circular Coordinte System -
+	if(tempX*tempX>tempY*tempY)
+	{
+		Mult = tempX;
+	}
+	else
+	{
+		Mult = tempY;
+	}	
+	this->Axis_scaled_values[X_AXIS] = (tempX * Mult) / rad;
+	this->Axis_scaled_values[Y_AXIS] = (tempY * Mult) / rad;
+
 	msg.concat(" X_AXIS: ");
 	msg.concat(this->Axis_scaled_values[X_AXIS]);
 	msg.concat(" Y_AXIS: ");
@@ -140,15 +156,19 @@ void Cytron_PS2_Shield::UpdateData()
 	// ---------------- Polar Values -------------------------------
 	// Debugger message (Level: DEBUG)
 	// Full scale Polar Values: %POLAR_RADIUS% %POLAR_ANGLE%
-	// Radius = sqrt(X_AXIS^2 + Y_AXIS^2)
-	this->Polar_values[RADIUS]=pow((pow(this->Axis_scaled_values[X_AXIS],2)+pow(this->Axis_scaled_values[Y_AXIS],2)),0.5);
+
 	// Angle = arcTan(X_AXIS/Y_AXIS)
 	// Angle Values in Radian
-	this->Polar_values[ANGLE]=atan2(this->Axis_scaled_values[X_AXIS],this->Axis_scaled_values[Y_AXIS]);
+	this->Polar_values[ANGLE]=atan2(tempY,tempX)-PI/2;
 	// To make Angles Positive
 	if(this->Polar_values[ANGLE]<0)
-		this->Polar_values[ANGLE] += 2*3.1415;
-	this->Polar_values[ANGLE] *=180/3.1415;
+		this->Polar_values[ANGLE] += 2*PI;
+		// Radius = sqrt(X_AXIS^2 + Y_AXIS^2)
+	this->Polar_values[RADIUS]=pow((pow(this->Axis_scaled_values[X_AXIS],2)+pow(this->Axis_scaled_values[Y_AXIS],2)),0.5);
+		// Conversion to Degrees and Phase Shift by 90 Degrees
+	this->Polar_values[ANGLE] *=180/PI;
+	if(this->Polar_values[RADIUS] == 0)
+		this->Polar_values[ANGLE] = 0;
 	msg = "Full scale Polar Values ";
 	msg.concat(" RADIUS: ");
 	msg.concat(this->Polar_values[RADIUS]);
