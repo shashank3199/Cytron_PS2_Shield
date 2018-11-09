@@ -146,4 +146,4 @@ Let's explore the contents of the class, but first, we also have literals define
   # References
   - [Paper for reference](./.DATA/MappingReference.pdf): Analytical Methods for Squaring the Disc
 
-![Developers Tag](https://img.shields.io/badge/Developer-shashank3199-red.svg)
+[![Developers Tag](https://img.shields.io/badge/Developer-shashank3199-red.svg)](https://github.com/shashank3199)
