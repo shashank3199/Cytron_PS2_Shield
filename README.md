@@ -29,11 +29,11 @@ In order to use this library, you must do the following:
 # Library Explanation
 The Library uses Simple Stretching Model for Mapping the Joystick Values from Cartesian to Polar Coordinate System as Shown in the Following Figure -
 
-![Image1](./.DATA/IMAGES/Convention.png)
+![Image1](./.DATA/IMAGES/Convention.PNG)
 
 The Formula for the Mapping is -
 
-![Image2](./.DATA/IMAGES/Formula.png)
+![Image2](./.DATA/IMAGES/Formula.PNG)
 
 ## Examples
 
