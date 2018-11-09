@@ -1,5 +1,5 @@
 /*
-  Cytron_PS2_Shield.h - Library to deal with Cytron PS2 Controller Module.
+  Cytron_PS2_Shield.cpp - Library to deal with Cytron PS2 Controller Module.
   Copyright (c) 2018 RoboManipal. All right reserved
   File created by : Shashank Goyal
 */
@@ -31,13 +31,11 @@ uint8_t Cytron_PS2_Shield::read(void)
 		if(PS2Serial->available() > 0)
 		{
 			rec_data = PS2Serial->read();
-			SERIAL_ERR = false; 
 			return(rec_data);
 		}
 		waitcount++; 
 		if(waitcount > 50000)
 		{
-			SERIAL_ERR = true; 
 			return (0xFF); 
 		}
 	}
@@ -134,18 +132,11 @@ void Cytron_PS2_Shield::UpdateData()
 	int tempY = 127 - this->Axis_raw_values[Y_AXIS];
 	// Temporary Variables - 
 	float rad = pow((pow(tempX,2)+pow(tempY,2)),0.5);
-	int Mult ;
 	// Mapping the Square Coordintae System to Circular Coordinte System -
-	if(tempX*tempX>tempY*tempY)
-	{
-		Mult = tempX;
-	}
-	else
-	{
-		Mult = tempY;
-	}	
-	this->Axis_scaled_values[X_AXIS] = (tempX * Mult) / rad;
-	this->Axis_scaled_values[Y_AXIS] = (tempY * Mult) / rad;
+	int Mult = (tempX*tempX>tempY*tempY) ? tempX : tempY;
+	Mult *= sgnm(Mult);
+	this->Axis_scaled_values[X_AXIS] = ( tempX * Mult) / rad;
+	this->Axis_scaled_values[Y_AXIS] = ( tempY * Mult) / rad;
 
 	msg.concat(" X_AXIS: ");
 	msg.concat(this->Axis_scaled_values[X_AXIS]);
