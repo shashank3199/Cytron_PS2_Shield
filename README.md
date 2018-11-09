@@ -29,11 +29,11 @@ In order to use this library, you must do the following:
 # Library Explanation
 The Library uses Simple Stretching Model for Mapping the Joystick Values from Cartesian to Polar Coordinate System as Shown in the Following Figure -
 
-![Image1](./DATA/IMAGES/Convention.png)
+![Image1](./.DATA/IMAGES/Convention.png)
 
 The Formula for the Mapping is -
 
-![Image2](./DATA/IMAGES/Formula.png)
+![Image2](./.DATA/IMAGES/Formula.png)
 
 ## Examples
 
@@ -144,6 +144,6 @@ Let's explore the contents of the class, but first, we also have literals define
 
 
   # References
-  - [Paper for reference](./DATA/MappingReference.pdf): Analytical Methods for Squaring the Disc
+  - [Paper for reference](./.DATA/MappingReference.pdf): Analytical Methods for Squaring the Disc
 
 ![Developers Tag](https://img.shields.io/badge/Developer-shashank3199-red.svg)
