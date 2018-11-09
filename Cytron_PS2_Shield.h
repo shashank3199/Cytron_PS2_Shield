@@ -21,6 +21,8 @@
 #define ANGLE 0
 #define RADIUS 1
 
+#define sgnm(x) x>=0?1:-1
+
 // Define PS2 button to number
 enum 
 {
@@ -54,13 +56,6 @@ enum
   PS2_JOYSTICK_RIGHT_DOWN,
   PS2_JOYSTICK_RIGHT_LEFT,
   PS2_JOYSTICK_RIGHT_RIGHT,
-  // Check connection status
-  PS2_CONNECTION_STATUS,
-  // Control motor vibrarion
-  PS2_MOTOR_1,
-  PS2_MOTOR_2,
-  // Read all button
-  PS2_BUTTON_JOYSTICK
 };
 
 class Cytron_PS2_Shield
@@ -84,8 +79,6 @@ class Cytron_PS2_Shield
     uint8_t read(void);
 
   public:
-    boolean SERIAL_ERR;
-    uint8_t ps_data[6];
 
     // ################### Debugger Serial ##############
     DebuggerSerial debugger;
