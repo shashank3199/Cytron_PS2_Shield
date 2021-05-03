@@ -1,7 +1,28 @@
-![Version tag](https://img.shields.io/badge/Version-1.0.1-blue.svg)
+![Version tag](https://img.shields.io/badge/Version-1.1.0-blue.svg)
 
 # Introduction
-This library is for the receiver end of the Cytron PS2 Shield (reference  [here](https://www.cytron.io/p-shield-ps2)).
+This library is for the receiver end of the Cytron PS2 Shield (reference [here](https://www.cytron.io/p-shield-ps2)).
+
+# Index
+- [Introduction](#introduction)
+- [Index](#index)
+- [Users Guide](#user-guide)
+    - [Downloading the library](#downloading-the-library)
+    - [Using the library with Arduino](#using-the-library-with-arduino)
+- [Library Explanation](#library-explanation)
+  - [Examples](#examples)
+      - [ReadJoystick](#readjoystick)
+      - [Read_Button](#read_button)
+- [Developers Guide](#developers-guide)
+    - [Library Details](#library-details)
+    - [Class contents](#class-contents)
+        - [Private members](#private-members)
+            - [Variables](#variables)
+            - [Member functions](#member-functions)
+        - [Public members](#public-members)
+            - [Constructors](#constructors)
+            - [Member functions](#member-functions)
+- [References](#references)
 
 # User guide
 ## Downloading the library
@@ -9,8 +30,6 @@ It is suggested that you download the entire repository and then select this fol
 ```
 git clone https://github.com/shashank3199/Cytron_PS2_Shield
 ```
-_You might want to omit the `-b <branch>` tag if you're downloading from the master branch_.
-
 **Not recommended**: You can download _only_ this folder by clicking [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shashank3199/Cytron_PS2_Shield)
 
 ## Using the library with Arduino
@@ -29,11 +48,11 @@ In order to use this library, you must do the following:
 # Library Explanation
 The Library uses Simple Stretching Model for Mapping the Joystick Values from Cartesian to Polar Coordinate System as Shown in the Following Figure -
 
-![Image1](./.DATA/IMAGES/Convention.PNG)
+![Image1](./extras/IMAGES/Convention.PNG)
 
 The Formula for the Mapping is -
 
-![Image2](./.DATA/IMAGES/Formula.PNG)
+![Image2](./extras/IMAGES/Formula.PNG)
 
 ## Examples
 
@@ -122,7 +141,7 @@ Let's explore the contents of the class, but first, we also have literals define
 
 ### Public members
 #### Members
-  - **<font color="#CD00FF">DebuggerSerial</font> debugger**: The debugger for the class. Check the [DebuggerSerial documentation](./../DebuggerSerial/) for more on this.
+  - **<font color="#CD00FF">DebuggerSerial</font> debugger**: The debugger for the class. Check the [DebuggerSerial documentation](https://github.com/RoboManipal-9-0/Libraries/tree/master/DebuggerSerial) for more on this.
 
 #### Constructors
   - **<font color="#5052FF">Cytron_PS2_Shield</font>()**: Empty constructor for the class.
@@ -143,7 +162,7 @@ Let's explore the contents of the class, but first, we also have literals define
   - **<font color="#CD00FF">float</font> GetPolarRadius()**: To get the radius on the Circular mapping.
 
 
-  # References
-  - [Paper for reference](./.DATA/MappingReference.pdf): Analytical Methods for Squaring the Disc
+# References
+  - [Paper for reference](./extras/MappingReference.pdf): Analytical Methods for Squaring the Disc
 
 [![Developers Tag](https://img.shields.io/badge/Developer-shashank3199-red.svg)](https://github.com/shashank3199)

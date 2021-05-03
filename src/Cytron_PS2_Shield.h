@@ -10,7 +10,7 @@
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 #include "Stream.h"
-#include "DebuggerSerial.h"
+#include "DebuggerSerial/src/DebuggerSerial.h"
 
 #define RIGHT_JOYSTICK 0
 #define LEFT_JOYSTICK 1
