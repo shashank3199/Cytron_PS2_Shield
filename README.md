@@ -11,7 +11,7 @@ This library is for the receiver end of the Cytron PS2 Shield (reference [here](
     - [Using the library with Arduino](#using-the-library-with-arduino)
 - [Library Explanation](#library-explanation)
   - [Examples](#examples)
-      - [ReadJoystick](#readjoystick)
+      - [Read_Joystick](#read_joystick)
       - [Read_Button](#read_button)
 - [Developers Guide](#developers-guide)
     - [Library Details](#library-details)
